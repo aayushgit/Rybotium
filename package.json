@@ -1,0 +1,22 @@
+{
+  "name": "rybotium",
+  "version": "1.0.0",
+  "description": "A cryptocurrency based on Javascript ",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aayushgit/Rybotium.git"
+  },
+  "author": "Aayush Sharma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aayushgit/Rybotium/issues"
+  },
+  "homepage": "https://github.com/aayushgit/Rybotium#readme",
+  "dependencies": {
+    "crypto-js": "^3.1.9-1"
+  }
+}
