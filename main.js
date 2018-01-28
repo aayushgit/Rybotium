@@ -6,17 +6,27 @@ class Block{
 		this.data = data;
 		this.previousHash = previousHash;
 		this.hash =this.calculateHash();
+		this.nonce = 0;
 	}
 
 	calculateHash(){
-	    return SHA256(this.index+this.timestamp+JSON.stringify(this.data)).toString();
+	    return SHA256(this.index+this.timestamp+JSON.stringify(this.data)+ this.nonce).toString();
 
 	}
+
+	mineBlock(difficulty){
+	    while(this.hash.substring(0,difficulty) !== Array(difficulty+1).join("0")){
+	        this.nonce++;
+	        this.hash = this.calculateHash();
+        }
+        console.log("Block Mined "+this.hash);
+    }
 }
 
 class Blockchain{
     constructor(){
         this.chain = [this.createGenesisBlock()];
+        this.difficulty =4;
 
     }
 
@@ -30,7 +40,7 @@ class Blockchain{
 
     addBlock(newBlock){
         newBlock.previousHash = this.getLatestBlock().hash;
-        newBlock.hash = newBlock.calculateHash();
+        newBlock.mineBlock(this.difficulty);
         this.chain.push(newBlock);
     }
 
@@ -51,10 +61,8 @@ class Blockchain{
 }
 
 let rybotium = new  Blockchain();
+console.log("Mining first block:");
 rybotium.addBlock(new Block(1,"28/01/2018",{amount:10}));
+console.log("Mining second block:");
 rybotium.addBlock(new Block(2,"30/01/2018",{amount:17}));
-console.log('Is blockchain valid?'+rybotium.isChainValid());
-rybotium.chain[1].data = {amount:100};
-rybotium.chain[1].hash = rybotium.chain[1].calculateHash();
-console.log('Is blockchain valid?'+rybotium.isChainValid());
 // console.log(JSON.stringify(rybotium,null,4));
